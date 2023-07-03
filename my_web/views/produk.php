@@ -1,3 +1,7 @@
+<?php
+require "../model/functions.php";
+?>
+
 <div class="row">
     <div class="col-sm-8">
 
@@ -106,7 +110,6 @@
                 success: function(data) {
                     console.log(data)
                 }
-
             })
 
         }
