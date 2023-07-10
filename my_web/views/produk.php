@@ -8,19 +8,39 @@ require "../model/functions.php";
         <p id="notif"></p>
 
         <h4>Data Produk</h4>
-        <table class="table table-dark" id="tabel_produk">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kode Produk</th>
-                    <th>Nama Produk</th>
-                    <th>Jenis Produk</th>
-                    <th>Harga</th>
-                    <th>Stok</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-dark" id="tabel_produk">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Produk</th>
+                        <th>Nama Produk</th>
+                        <th>Jenis Produk</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $no = 1;
+                    foreach (produk() as $p) : ?>
+                        <tr>
+                            <td><?= $no++; ?></td>
+                            <td><?= $p["kode_produk"]; ?></td>
+                            <td><?= $p["nama_produk"]; ?></td>
+                            <td><?= $p["jenis_produk"]; ?></td>
+                            <td><?= $p["harga"]; ?></td>
+                            <td><?= $p["stok"]; ?></td>
+                            <td>
+                                <button class="btn btn-success">Edit</button>
+                                <button class="btn btn-danger">Hapus</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
     </div>
     <div class="col-sm-4">
