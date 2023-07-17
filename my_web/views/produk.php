@@ -34,7 +34,7 @@ require "../model/functions.php";
                             <td><?= $p["stok"]; ?></td>
                             <td>
                                 <button class="btn btn-success">Edit</button>
-                                <button class="btn btn-danger">Hapus</button>
+                                <button class="btn btn-danger hapus-produk" id_produk="<?= $p["id"] ?>">Hapus</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -79,6 +79,27 @@ require "../model/functions.php";
 </div>
 
 <script>
+    $(".hapus-produk").click(function() {
+        var id_produk = $(this).attr("id_produk")
+        var konfirmasi = confirm("Apakah data ini akan dihapus?")
+        if (konfirmasi === true) {
+            $.ajax({
+                type: "POST",
+                url: "controllers/hapus_produk.php",
+                data: "id_produk=" + id_produk,
+                success: function(data) {
+                    if (data == "gagal") {
+                        alert("Data gagal dihapus")
+                    } else if (data == "berhasil") {
+                        $("#isi_halaman").load("views/produk.php")
+                    }
+                }
+            })
+        } else {
+            return false
+        }
+    })
+
     $("#simpan").click(function() {
         var kode_produk = $("#kode_produk").val()
         if (kode_produk == "") {
@@ -128,7 +149,13 @@ require "../model/functions.php";
                 url: "controllers/simpan_produk.php",
                 data: "kode_produk=" + kode_produk + "&nama_produk=" + nama_produk + "&jenis_produk=" + jenis_produk + "&harga=" + harga_produk + "&stok=" + stok,
                 success: function(data) {
-                    console.log(data)
+                    // console.log(data)
+                    if (data == "gagal") {
+                        alert("Kode produk sudah ada sebelumnya!")
+                    } else if (data == "berhasil") {
+                        alert("Data berhasil ditambahkan!")
+                        $("#isi_halaman").load("views/produk.php")
+                    }
                 }
             })
 
